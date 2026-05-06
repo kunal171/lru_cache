@@ -29,19 +29,33 @@ put(1, "a")  put(2, "b")  put(3, "c")  get(1)  put(4, "d")
 
 ## Current State
 
-Project just initialized. Planning milestones.
+Milestones 1–3 complete. Core LRU behavior works: insert, get with move-to-front, and eviction.
+
+Remaining: Milestone 4 — update existing keys, edge cases (capacity 0/1), comprehensive tests.
+
+## Implemented So Far
+
+- `LruCache<K, V>` generic struct with `K: Hash + Eq + Clone`
+- Arena-based doubly-linked list (`Vec<Node>` with index pointers)
+- `new(capacity)` — create cache with fixed capacity
+- `put(key, value)` — insert at front, evict tail when at capacity
+- `get(&key)` — O(1) lookup, moves accessed entry to front
+- `len()`, `capacity()`, `is_empty()` — cache metadata
+- Internal helpers: `push_front(index)`, `detach(index)`
+- `main.rs` demo showing insert, access reordering, and eviction
+- Unit tests for empty cache and insert+len
 
 ## Milestone Plan
 
-### Milestone 1: Basic Structure and Put
+### Milestone 1: Basic Structure and Put — done
 
 Create `LruCache<K, V>` with fixed capacity, insert entries, `len()` and `capacity()`.
 
-### Milestone 2: Get With Move-to-Front
+### Milestone 2: Get With Move-to-Front — done
 
 `get(key)` returns the value and moves the entry to the most-recent position.
 
-### Milestone 3: Eviction
+### Milestone 3: Eviction — done
 
 When `put()` exceeds capacity, evict the least recently used entry.
 
@@ -49,14 +63,15 @@ When `put()` exceeds capacity, evict the least recently used entry.
 
 Update existing keys, handle edge cases (capacity 0/1), comprehensive unit tests.
 
-## Planned Concepts
+## Concepts Practiced
 
-- Generic structs (`LruCache<K, V>` where `K: Hash + Eq`)
+- Generic structs (`LruCache<K, V>` where `K: Hash + Eq + Clone`)
 - Data structure composition (HashMap + doubly-linked list)
 - Arena/index-based linked list (safe Rust alternative to raw pointers)
 - O(1) lookup, insertion, and eviction
+- Trait bounds (`Hash`, `Eq`, `Clone`) and why each is needed
+- `Option<usize>` for nullable index pointers
 - API design (clean public interface, hidden internals)
-- Thorough unit testing
 
 ## Useful Commands
 
