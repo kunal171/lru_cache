@@ -31,4 +31,17 @@ fn main() {
         Some(val) => println!("get(3) = {}", val),
         None => println!("get(3) = evicted!"),
     }
+
+    println!("\n=== Updating existing key 3 ===");
+    cache.put(3, "cherry updated");
+    match cache.get(&3) {
+        Some(val) => println!("get(3) = {}", val),
+        None => println!("get(3) = not found"),
+    }
+    println!("len: {} (unchanged — update, not insert)", cache.len());
+
+    println!("\n=== Capacity 0 cache ===");
+    let mut zero_cache: LruCache<i32, &str> = LruCache::new(0);
+    zero_cache.put(1, "a");
+    println!("len after put: {} (nothing stored)", zero_cache.len());
 }
