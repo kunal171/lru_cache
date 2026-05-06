@@ -1,4 +1,7 @@
-use std::collections::{HashMap};
+//! LRU cache implementation using a HashMap for O(1) lookup and an arena-based
+//! doubly-linked list for O(1) reordering and eviction.
+
+use std::collections::HashMap;
 use std::hash::Hash;
 
 /// A simple LRU cache implementation using a HashMap and a doubly linked list.

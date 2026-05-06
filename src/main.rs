@@ -1,3 +1,5 @@
+//! Demo showing LRU cache insert, access reordering, and eviction behavior.
+
 use lru_cache::LruCache;
 
 fn main() {
